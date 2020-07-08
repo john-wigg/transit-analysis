@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="bundle.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto">
+        <style>
+            body {
+            font-family: 'Roboto', serif;
+            font-size: 15px;
+            }
+        </style>
+  </head>
+  <body>
+    <h1>Exoplanet Transit Analysis</h1>
+    <div class="row">
+    <div class="open-file">
+        <h2>Load file</h2>
+        <button onclick="openFile()" class="foo-button mdc-button mdc-button--raised">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">Load a file</span>
+        </button>
+        <input id="file-input" type="file" name="name" style="display: none;" />
+        <div class="result">
+            Midtransit (JD)
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="midtransit">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            Transit depth (mag)
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="depth">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            Transit duration (JD)
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="duration">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+    </div>
+    <div class="parameters">
+        <div class="planet-star-parameters">
+            <h2>Star and planet parameters</h2>
+            <div class="input-pair">
+                <label class="mdc-text-field mdc-text-field--filled input_mass">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-mass">
+                    <span class="mdc-floating-label">M<sub>*</sub> in M<sub>sun</sub></span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+                <div style="padding-left:20px; padding-right:20px">+/-</div>
+                <label class="mdc-text-field mdc-text-field--filled input_mass_error">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-mass-error">
+                    <span class="mdc-floating-label">error</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+            <div class="input-pair">
+                <label class="mdc-text-field mdc-text-field--filled input_radius">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-radius">
+                    <span class="mdc-floating-label">R<sub>*</sub> in R<sub>sun</sub></span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+                <div style="padding-left:20px; padding-right:20px">+/-</div>
+                <label class="mdc-text-field mdc-text-field--filled input_radius_error">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-radius-error">
+                    <span class="mdc-floating-label">error</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+            <div class="input-pair">
+                <label class="mdc-text-field mdc-text-field--filled input_period">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-period">
+                    <span class="mdc-floating-label">P in d</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+                <div style="padding-left:20px; padding-right:20px">+/-</div>
+                <label class="mdc-text-field mdc-text-field--filled input_period_error">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-period-error">
+                    <span class="mdc-floating-label">error</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="rv-parameters">
+            <h2>RV parameters</h2>
+            <div class="input-pair">
+                <label class="mdc-text-field mdc-text-field--filled input_k">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-K">
+                    <span class="mdc-floating-label">K in m/s</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+                <div style="padding-left:20px; padding-right:20px">+/-</div>
+                <label class="mdc-text-field mdc-text-field--filled input_k_error">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-K-error">
+                    <span class="mdc-floating-label">error</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+            <div class="input-pair">
+                <label class="mdc-text-field mdc-text-field--filled input_eccentricity">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-eccentricity">
+                    <span class="mdc-floating-label">e</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+                <div style="padding-left:20px; padding-right:20px">+/-</div>
+                <label class="mdc-text-field mdc-text-field--filled input_eccentricity_error">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input type="text" onkeypress="validate(event)" class="mdc-text-field__input" id="input-eccentricity-error">
+                    <span class="mdc-floating-label">error</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+        </div>
+        <button class="compute-button mdc-button mdc-button--raised" onclick="computeResults()">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Compute results</span>
+        </button>
+    </div>
+
+    <div class="results">
+        <h2>Results</h2>
+        <div class="result">
+            R(P)/R<sub>*</sub>
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="output-r-aspect">
+                <span class="mdc-floating-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            b
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="output-b">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            a in AU
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="output-a">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            i in °
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="output-i">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            R(P) in R<sub>jup</sub>
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="output-r">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+        <div class="result">
+            M(P) in M<sub>jup</sub>
+            <label class="mdc-text-field mdc-text-field--filled output_r_aspect">
+                <span class="mdc-text-field__ripple"></span>
+                <input disabled type="text" onkeypress="validate(event)" class="mdc-text-field__input" value="0.000 +/- 0.000" id="output-m">
+                <span class="mdc-floating-label" id="star-mass-label"></span>
+                <span class="mdc-line-ripple"></span>
+            </label>
+        </div>
+    </div>
+    </div>
+
+    <div class="mdc-dialog">
+        <div class="mdc-dialog__container">
+          <div class="mdc-dialog__surface"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="my-dialog-title"
+            aria-describedby="my-dialog-content">
+            <div class="mdc-dialog__content" id="my-dialog-content">
+              Error!
+            </div>
+            <div class="mdc-dialog__actions">
+              <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Discard</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+    <script src="bundle.js" async></script>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="validator.js"></script>
+    <script src="transit.js"></script>
+  </body>
+</html>

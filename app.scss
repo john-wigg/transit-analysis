@@ -1,0 +1,50 @@
+@use '@material/button/mdc-button';
+@use '@material/button';
+@use '@material/textfield/mdc-text-field';
+@use '@material/dialog';
+
+@include dialog.core-styles;
+
+.foo-button,
+.compute-button {
+  @include button.container-fill-color(cornflowerblue);
+}
+
+.input_mass,
+.input_radius,
+.input_period,
+.input_k,
+.input_eccentricity {
+  width: 150px;
+}
+
+.input_mass_error,
+.input_radius_error,
+.input_period_error,
+.input_k_error,
+.input_eccentricity_error {
+    width: 150px;
+}
+
+.input-pair {
+    display: flex;
+    line-height: 65px;
+    text-align: center;
+}
+
+.result {
+    display: flex;
+    line-height: 65px;
+    text-align: center;
+}
+
+.results,
+.open-file,
+.parameters {
+  display: inline-block;
+}
+
+.row {
+  width: 100%;
+  margin: 0 auto;
+}
