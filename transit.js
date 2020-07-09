@@ -95,8 +95,12 @@ function computeResults() {
       var s_lo = computeAll(p_lo);
       var j;
       for (j = 0; j < s_err.length; j++) {
-        s_err[j] += Math.pow(s_up[j] - s_lo[j], 2.0);
+        s_err[j] += Math.pow((s_up[j] - s_lo[j]) / 2.0, 2.0);
       }
+    }
+
+    for (j = 0; j < s_err.length; j++) {
+      s_err[j] = Math.sqrt(s_err[j]);
     }
     
     document.getElementById("output-r-aspect").value = formatFloat(s[1]) + " +/- " + formatFloat(s_err[1])
