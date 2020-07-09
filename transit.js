@@ -83,7 +83,7 @@ function computeResults() {
       }
     }
     
-    var s_err = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+    var s_err = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
     s = computeAll(p);
     
     for (var i = 0; i < p.length; i++) {
@@ -109,6 +109,8 @@ function computeResults() {
     document.getElementById("output-i").value = formatFloat(s[4]) + " +/- " + formatFloat(s_err[4])
     document.getElementById("output-r").value = formatFloat(s[3]) + " +/- " + formatFloat(s_err[3])
     document.getElementById("output-m").value = formatFloat(s[5]) + " +/- " + formatFloat(s_err[5])
+    document.getElementById("output-roche-rigid").value = formatFloat(s[7]) + " +/- " + formatFloat(s_err[7]);
+    document.getElementById("output-roche-fluid").value = formatFloat(s[8]) + " +/- " + formatFloat(s_err[8]);
 
     return;
 }
@@ -186,8 +188,18 @@ function computeB(p, s) {
   return s;
 }
 
+function computeRocheRigid(p, s) {
+  s[7] = s[3] * Math.pow(2.0 * p[3] * 1.99E+30 / (s[5] * 1.9E+27), 1.0/3.0) *70000000/150000000000;
+  return s;
+}
+
+function computeRocheFluid(p, s) {
+  s[8] = 2.423 * 0.7937 * s[7];
+  return s;
+}
+
 function computeAll(p) {
-  var s = Array(7);
+  var s = Array(9);
   s = computeMSin(p, s);
   s = computeRAspect(p, s);
   s = computeA(p, s);
@@ -195,5 +207,7 @@ function computeAll(p) {
   s = computeI(p, s);
   s = computeM(p, s);
   s = computeB(p, s);
+  s = computeRocheRigid(p, s);
+  s = computeRocheFluid(p, s);
   return s;
 }
