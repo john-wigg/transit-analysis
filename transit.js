@@ -194,7 +194,7 @@ function computeRocheRigid(p, s) {
 }
 
 function computeRocheFluid(p, s) {
-  s[8] = 2.423 * 0.7937 * s[7];
+  s[8] = 2.4554 * 0.7937 * s[7];
   return s;
 }
 
